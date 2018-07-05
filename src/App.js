@@ -29,6 +29,9 @@ class Card extends Component {
 }
 
 class App extends Component {
+  state = {
+    selectedItems: [],
+  };
   get mockData() {
     const data = [];
     for (let i = 0; i < 50; i++) {
@@ -38,19 +41,29 @@ class App extends Component {
   }
   render() {
     return (
-      <HighlightArea>
-        {() => (
-          <div
-            style={{
-              display: 'grid',
-              gridGap: 50,
-              gridTemplateColumns: 'repeat(5, 100px)',
-            }}
-          >
-            {this.mockData}
-          </div>
-        )}
-      </HighlightArea>
+      <div>
+        <div>
+          {' '}
+          Some header{' '}
+          {this.state.selectedItems.length ? <div>some icons</div> : null}
+        </div>
+        <HighlightArea
+          onSelected={this.handleSelected}
+          onDeselected={() => this.setState(() => ({ selectedItems: [] }))}
+        >
+          {() => (
+            <div
+              style={{
+                display: 'grid',
+                gridGap: 50,
+                gridTemplateColumns: 'repeat(5, 100px)',
+              }}
+            >
+              {this.mockData}
+            </div>
+          )}
+        </HighlightArea>
+      </div>
     );
   }
 }
